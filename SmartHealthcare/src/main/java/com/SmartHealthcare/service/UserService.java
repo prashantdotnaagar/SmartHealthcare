@@ -5,9 +5,9 @@ import com.SmartHealthcare.model.User;
 import com.SmartHealthcare.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,13 +22,16 @@ public class UserService {
         return userRepo.findByuserEmail(email);
     }
 
-    public void saveUser(User user){
-        userRepo.save(user);
+    @Transactional
+    public User saveUser(User user){
+        return userRepo.save(user);
+
     }
 
     public List<User>getAllUsers(){
         return userServiceImpl.getAllUsers();
 
     }
+    public void deleteUser(Long id){userRepo.deleteById(id);}
 
 }

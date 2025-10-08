@@ -1,27 +1,13 @@
 package com.SmartHealthcare.service;
 
-
-import com.SmartHealthcare.Impl.DoctorServiceImpl;
+import com.SmartHealthcare.dto.request.doctor.FilterRequest;
 import com.SmartHealthcare.model.Doctor;
-import com.SmartHealthcare.repository.DoctorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class DoctorService {
-
-    @Autowired
-    private DoctorRepository doctorRepo;
-
-    @Autowired
-    private DoctorServiceImpl doctorServiceimpl;
-
-    public void saveDoctor(Doctor doctor){
-        doctorRepo.save(doctor);
-    }
-
-    public List<Doctor> getAllDoctor(){return  doctorServiceimpl.getAllDoctor();}
-
+public interface DoctorService {
+    void saveDoctor(Doctor doctor);
+    List<Doctor> getAllDoctors();
+    Doctor getDoctorById(Long id);
+    List<Doctor> searchDoctors(String specialization, String location, String language, Integer minexperience, Integer maxexperience);
+    List<Doctor>filterDoctors(FilterRequest filterRequest);
 }

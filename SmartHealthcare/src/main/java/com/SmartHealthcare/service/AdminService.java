@@ -26,4 +26,6 @@ public class AdminService {
         return adminServiceimpl.getAllAdmin();
     }
 
+    public Admin getAdminById(Long id) {return adminRepository.getReferenceById(id);}
+
 }
