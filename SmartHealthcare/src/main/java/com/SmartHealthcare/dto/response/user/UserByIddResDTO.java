@@ -1,7 +1,7 @@
 package com.SmartHealthcare.dto.response.user;
 
 
-import com.SmartHealthcare.model.UserRole;
+import com.SmartHealthcare.constants.UserRole;
 import lombok.Data;
 
 @Data

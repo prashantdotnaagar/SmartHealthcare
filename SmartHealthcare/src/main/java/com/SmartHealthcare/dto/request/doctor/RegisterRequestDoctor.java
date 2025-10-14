@@ -1,7 +1,7 @@
 package com.SmartHealthcare.dto.request.doctor;
 
 import com.SmartHealthcare.dto.request.user.BaseUserRequest;
-import com.SmartHealthcare.model.UserRole;
+import com.SmartHealthcare.constants.UserRole;
 import lombok.Data;
 
 @Data
@@ -10,7 +10,6 @@ public class RegisterRequestDoctor implements BaseUserRequest {
     private String userEmail;
     private String userPassword;
     private UserRole role;
-
     private String firstName;
     private String lastName;
     private String licenseNumber;
@@ -23,5 +22,7 @@ public class RegisterRequestDoctor implements BaseUserRequest {
     private String availability;
     private Double consultationFees;
     private Double ratings;
+    private String availabilityStarting;
+    private String availabilityEnd;
 }
 

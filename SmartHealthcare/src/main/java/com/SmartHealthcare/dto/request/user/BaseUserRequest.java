@@ -1,6 +1,6 @@
 package com.SmartHealthcare.dto.request.user;
 
-import com.SmartHealthcare.model.UserRole;
+import com.SmartHealthcare.constants.UserRole;
 
 public interface BaseUserRequest {
     String getUserName();

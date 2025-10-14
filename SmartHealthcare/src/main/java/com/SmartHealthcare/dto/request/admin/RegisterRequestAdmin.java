@@ -2,7 +2,7 @@ package com.SmartHealthcare.dto.request.admin;
 
 
 import com.SmartHealthcare.dto.request.user.BaseUserRequest;
-import com.SmartHealthcare.model.UserRole;
+import com.SmartHealthcare.constants.UserRole;
 import lombok.Data;
 
 @Data

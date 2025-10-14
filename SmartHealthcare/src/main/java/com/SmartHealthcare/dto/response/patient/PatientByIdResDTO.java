@@ -1,7 +1,6 @@
 package com.SmartHealthcare.dto.response.patient;
 
-import com.SmartHealthcare.model.Gender;
-import com.SmartHealthcare.model.UserRole;
+import com.SmartHealthcare.constants.Gender;
 import lombok.Data;
 
 import java.time.LocalDate;
