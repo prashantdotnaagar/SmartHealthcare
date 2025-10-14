@@ -1,7 +1,9 @@
 package com.SmartHealthcare.controller;
 
 import com.SmartHealthcare.dto.LoginRequest;
-import com.SmartHealthcare.dto.RegiesterRequest;
+import com.SmartHealthcare.dto.request.admin.RegisterRequestAdmin;
+import com.SmartHealthcare.dto.request.doctor.RegisterRequestDoctor;
+import com.SmartHealthcare.dto.request.patient.RegisterRequestPatient;
 import com.SmartHealthcare.security.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SmartHealthcare.Impl.RegisterImpl;
+import com.SmartHealthcare.Impl.registration.RegisterImpl;
 
 @RestController
 @RequestMapping("/auth")
@@ -34,10 +36,22 @@ public class AuthController {
     @Autowired
     private RegisterImpl register;
 
-    @PostMapping("/register")
-    ResponseEntity<String> register(@RequestBody RegiesterRequest request) {
-        register.registerUser(request);
-        return ResponseEntity.ok("Registered successfully");
+    @PostMapping("/doctor/register")
+    ResponseEntity<String> register(@RequestBody RegisterRequestDoctor request) {
+        register.registerDoctor(request);
+        return ResponseEntity.ok("Doctor Registered successfully");
+    }
+
+    @PostMapping("/patient/register")
+    ResponseEntity<String> register(@RequestBody RegisterRequestPatient request) {
+        register.registerPatient(request);
+        return ResponseEntity.ok("Patient Registered successfully");
+    }
+
+    @PostMapping("/admin/register")
+    ResponseEntity<String> register(@RequestBody RegisterRequestAdmin request) {
+        register.registerAdmin(request);
+        return ResponseEntity.ok("Patient Registered successfully");
     }
 
     @PostMapping("/login")

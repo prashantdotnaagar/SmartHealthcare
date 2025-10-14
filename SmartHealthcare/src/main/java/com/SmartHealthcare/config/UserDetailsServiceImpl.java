@@ -2,8 +2,7 @@ package com.SmartHealthcare.config;
 
 
 
-import com.SmartHealthcare.model.User;
-import com.SmartHealthcare.service.UserService;
+import com.SmartHealthcare.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import  com.SmartHealthcare.repository.UserRepository;
+import com.SmartHealthcare.repository.user.UserRepository;
 
 import java.util.List;
 
