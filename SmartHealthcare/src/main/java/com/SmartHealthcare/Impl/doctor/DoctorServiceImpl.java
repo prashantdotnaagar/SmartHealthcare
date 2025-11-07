@@ -17,6 +17,7 @@ import com.SmartHealthcare.service.doctor.DoctorService;
 import com.SmartHealthcare.util.doctor.DoctorDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -89,17 +90,29 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @Transactional
     public List<Doctor> filterDoctors(FilterRequest filterRequest) {
         try {
+            Double buffer = 200.0; // You can make this configurable
+            Double minFee = null;
+            Double maxFee = null;
+
+            if (filterRequest.getConsultationFees() != null) {
+                minFee = filterRequest.getConsultationFees() - buffer;
+                maxFee = filterRequest.getConsultationFees() + buffer;
+            }
+
             return doctorRepository.filterDoctors(
                     filterRequest.getAvailability(),
-                    filterRequest.getConsultationFees(),
+                    minFee,
+                    maxFee,
                     filterRequest.getRatings()
             );
         } catch (Exception e) {
             throw new ServiceException(ServiceCodes.INTERNAL_ERROR, "Error filtering doctors: " + e.getMessage());
         }
     }
+
 
     @Override
     public WeekSchedule getDoctorWeekSchedule(Long doctorId, LocalDate weekStart) {

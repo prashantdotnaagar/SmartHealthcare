@@ -56,4 +56,11 @@ public class DoctorDTOConverter {
                 .map(DoctorDTOConverter::convertToAvailabilityDTO)
                 .collect(Collectors.toList());
     }
+
+    public static List<DoctorDTO> convertToDoctorDTOList(List<Doctor> doctors) {
+        if (doctors == null || doctors.isEmpty()) return List.of();
+        return doctors.stream()
+                .map(DoctorDTOConverter::convertToDoctorDTO)
+                .collect(Collectors.toList());
+    }
 }

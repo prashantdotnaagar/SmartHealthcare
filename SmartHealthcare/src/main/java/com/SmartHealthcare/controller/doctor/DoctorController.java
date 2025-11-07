@@ -91,9 +91,10 @@ public class DoctorController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<List<Doctor>> filterDoctors(@RequestBody @Valid FilterRequest filterRequest) {
+    public ResponseEntity<List<DoctorDTO>> filterDoctors(@RequestBody @Valid FilterRequest filterRequest) {
         List<Doctor> doctors = doctorService.filterDoctors(filterRequest);
-        return ResponseEntity.ok(doctors);
+        List<DoctorDTO>result=DoctorDTOConverter.convertToDoctorDTOList(doctors);
+        return ResponseEntity.ok(result);
     }
     //Exact amount of consultaion fees , change it to round amount or nearest amount in data
 
