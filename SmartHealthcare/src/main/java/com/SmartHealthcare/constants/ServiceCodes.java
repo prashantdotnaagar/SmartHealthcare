@@ -65,8 +65,8 @@ public enum ServiceCodes {
     // ===== Misc / System =====
     DATABASE_ERROR("NHC601", "Database operation failed"),
     EXTERNAL_API_ERROR("NHC602", "Error communicating with external service"),
-    DATA_INCONSISTENCY("NHC603", "Data inconsistency detected");
-
+    DATA_INCONSISTENCY("NHC603", "Data inconsistency detected"),
+    NOT_FOUND("NHC701","Resource Not Found");
     private final String code;
     private final String message;
 
