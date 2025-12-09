@@ -3,6 +3,7 @@ package com.SmartHealthcare.Impl.appointment;
 import com.SmartHealthcare.constants.AppointmentStatus;
 import com.SmartHealthcare.constants.PaymentStatus;
 import com.SmartHealthcare.constants.ServiceCodes;
+import com.SmartHealthcare.dto.request.appointment.CancelAppointment;
 import com.SmartHealthcare.dto.request.appointment.DoctorScheduleAppointmentDTO;
 import com.SmartHealthcare.dto.request.appointment.PatientBookAppointmentDTO;
 import com.SmartHealthcare.exception.BusinessLogicException;
@@ -116,6 +117,59 @@ public class AppointmentImpl implements AppointmentService {
             throw new ServiceException(ServiceCodes.APPOINTMENT_SAVE_FAILED);
         }
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public CancelAppointment cancelAppointment(CancelAppointment cancellationReq) {
+        try {
+            log.info("Processing appointment cancellation for ID: {}", cancellationReq.getAppointmentId());
+
+            Appointment appointment = appointmentRepository.findById(cancellationReq.getAppointmentId())
+                    .orElseThrow(() -> {
+                        log.warn("Appointment not found with ID: {}", cancellationReq.getAppointmentId());
+                        return new ResourceNotFoundException(ServiceCodes.APPOINTMENT_NOT_FOUND);
+                    });
+
+            if (appointment.getStatus() == AppointmentStatus.CANCELLED) {
+                log.warn("Appointment with ID {} is already cancelled", cancellationReq.getAppointmentId());
+                throw new BusinessLogicException(ServiceCodes.APPOINTMENT_ALREADY_CANCELLED);
+            }
+
+
+            appointment.setCancellationReason(cancellationReq.getCancellationReason());
+            appointment.setCancelledBy(cancellationReq.getCancelledBy());
+            appointment.setCancelledAt(cancellationReq.getCancelledAt());
+            appointment.setStatus(AppointmentStatus.CANCELLED);
+
+
+            DoctorAvailability availability = appointment.getAvailability();
+            if (availability != null) {
+                availability.setBooked(false);
+                availability.setUpdatedAt(java.time.LocalDateTime.now());
+                doctorAvailabilityRepository.save(availability);
+                log.info("Freed doctor slot for availability ID: {}", availability.getAvailabilityId());
+            } else {
+                log.warn("No availability linked with appointment ID: {}", appointment.getAppointmentId());
+            }
+
+
+            appointmentRepository.save(appointment);
+            log.info("Successfully cancelled appointment with ID: {}", appointment.getAppointmentId());
+
+            return cancellationReq;
+
+        } catch (ResourceNotFoundException | BusinessLogicException e) {
+            log.error("Business error while cancelling appointment: {}", e.getMessage());
+            throw e;
+        } catch (org.springframework.dao.DataAccessException e) {
+            log.error("Database error while cancelling appointment: {}", e.getMessage(), e);
+            throw new ServiceException(ServiceCodes.DATABASE_ERROR);
+        } catch (Exception e) {
+            log.error("Unexpected error while cancelling appointment: {}", e.getMessage(), e);
+            throw new ServiceException(ServiceCodes.APPOINTMENT_CANCEL_FAILED);
+        }
+    }
+
 
     private void validateAppointmentRequest(DoctorScheduleAppointmentDTO req) {
         if (req.getDoctorId() == null || req.getDoctorId() <= 0) {

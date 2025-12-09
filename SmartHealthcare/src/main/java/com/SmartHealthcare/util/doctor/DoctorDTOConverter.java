@@ -1,6 +1,6 @@
 package com.SmartHealthcare.util.doctor;
 
-import com.SmartHealthcare.dto.DoctorDTO;
+import com.SmartHealthcare.dto.response.doctor.DoctorDTO;;
 import com.SmartHealthcare.dto.response.doctor.DoctorAvailabilityDTO;
 import com.SmartHealthcare.model.doctor.Doctor;
 import com.SmartHealthcare.model.doctor.DoctorAvailability;

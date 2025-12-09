@@ -1,6 +1,7 @@
 package com.SmartHealthcare.controller.appointment;
 
 import com.SmartHealthcare.constants.ServiceCodes;
+import com.SmartHealthcare.dto.request.appointment.CancelAppointment;
 import com.SmartHealthcare.dto.request.appointment.DoctorScheduleAppointmentDTO;
 import com.SmartHealthcare.dto.request.appointment.PatientBookAppointmentDTO;
 import com.SmartHealthcare.dto.response.appointment.AppointmentDTO;
@@ -38,10 +39,17 @@ public class AppointmentController {
         return ResponseEntity.ok(appointment);
     }
 
-    @PostMapping("patient")
+    @PostMapping("/patient")
     public ResponseEntity<PatientBookAppointmentDTO>createPatientAppointment(@RequestBody @Valid PatientBookAppointmentDTO appointmentReq){
         PatientBookAppointmentDTO appointment =appointmentService.saveAppointment(appointmentReq);
         return ResponseEntity.ok(appointment);
     }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<String>cancelAppointment(@RequestBody @Valid CancelAppointment cancellationReq){
+        appointmentService.cancelAppointment(cancellationReq);
+        return ResponseEntity.ok(ServiceCodes.APPOINTMENT_CANCELLED.getMessage());
+    }
+
 
 }

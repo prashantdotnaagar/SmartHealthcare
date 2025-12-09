@@ -46,6 +46,8 @@ public enum ServiceCodes {
     DUPLICATE_APPOINTMENT("NHC304", "Appointment already exists for the same slot"),
     APPOINTMENT_SAVE_FAILED("NHC305", "Failed to save appointment"),
     APPOINTMENT_CANCEL_FAILED("NHC306", "Failed to cancel appointment"),
+    APPOINTMENT_CANCELLED("NHC307","Appointment Cancelled"),
+    APPOINTMENT_ALREADY_CANCELLED("NHC308","Appointment already cancelled"),
 
 
 

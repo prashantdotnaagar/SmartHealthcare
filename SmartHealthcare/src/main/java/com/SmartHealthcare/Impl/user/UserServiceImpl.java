@@ -40,18 +40,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User saveUser(User user) {
         try {
+            log.info("Saving user: {}", user.getUserEmail());
             User existingUser = userRepository.findByuserEmail(user.getUserEmail());
 
-            if (existingUser != null) {
+            if (existingUser != null && !existingUser.getUserId().equals(user.getUserId())) {
                 log.warn("Duplicate user creation attempt: {}", user.getUserEmail());
                 throw new DuplicateResourceException(ServiceCodes.RESOURCE_CONFLICT);
             }
+
             return userRepository.save(user);
         } catch (Exception ex) {
             log.error("Error saving user: {}", user.getUserEmail(), ex);
             throw ex;
         }
     }
+
 
     @Override
     public List<User> getAllUsers() {

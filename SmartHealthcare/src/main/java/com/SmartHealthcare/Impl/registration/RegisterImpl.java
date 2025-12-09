@@ -11,6 +11,7 @@ import com.SmartHealthcare.model.admin.Admin;
 import com.SmartHealthcare.model.doctor.Doctor;
 import com.SmartHealthcare.model.patient.Patient;
 import com.SmartHealthcare.model.user.User;
+import com.SmartHealthcare.repository.user.UserRepository;
 import com.SmartHealthcare.service.admin.AdminService;
 import com.SmartHealthcare.service.doctor.DoctorService;
 import com.SmartHealthcare.service.patient.PatientService;
@@ -47,13 +48,15 @@ public class RegisterImpl {
     @Autowired
     private DoctorHelper doctorHelper;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Transactional
     private User createBaseUser(BaseUserRequest request) {
-        if (userService.getUserByEmail(request.getUserEmail()) != null) {
+        // Directly check from repository to avoid unnecessary exception handling
+        if (userRepository.findByuserEmail(request.getUserEmail()) != null) {
             log.warn("Duplicate user registration attempt: {}", request.getUserEmail());
-            throw new DuplicateResourceException(
-                    ServiceCodes.RESOURCE_CONFLICT
-            );
+            throw new DuplicateResourceException(ServiceCodes.RESOURCE_CONFLICT);
         }
 
         try {

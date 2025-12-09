@@ -1,4 +1,4 @@
-package com.SmartHealthcare.dto;
+package com.SmartHealthcare.dto.response.doctor;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

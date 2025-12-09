@@ -8,6 +8,7 @@ import com.SmartHealthcare.security.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -36,22 +37,24 @@ public class AuthController {
     @Autowired
     private RegisterImpl register;
 
+    @Valid
     @PostMapping("/doctor/register")
     ResponseEntity<String> register(@RequestBody RegisterRequestDoctor request) {
         register.registerDoctor(request);
         return ResponseEntity.ok("Doctor Registered successfully");
     }
 
+    @Valid
     @PostMapping("/patient/register")
     ResponseEntity<String> register(@RequestBody RegisterRequestPatient request) {
         register.registerPatient(request);
         return ResponseEntity.ok("Patient Registered successfully");
     }
-
+    @Valid
     @PostMapping("/admin/register")
     ResponseEntity<String> register(@RequestBody RegisterRequestAdmin request) {
         register.registerAdmin(request);
-        return ResponseEntity.ok("Patient Registered successfully");
+        return ResponseEntity.ok("Admin Registered successfully");
     }
 
     @PostMapping("/login")
@@ -65,7 +68,7 @@ public class AuthController {
         cookie.setHttpOnly(true);
         cookie.setSecure(false);
         cookie.setPath("/");
-        cookie.setMaxAge(24 * 60 * 60);
+        cookie.setMaxAge((int) jwtService.getInactivitySeconds());
         response.addCookie(cookie);
         System.out.println(cookie);
         return ResponseEntity.ok("Login successful. JWT stored in cookie.");
