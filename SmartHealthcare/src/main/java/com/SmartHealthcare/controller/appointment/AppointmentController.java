@@ -4,23 +4,15 @@ import com.SmartHealthcare.constants.ServiceCodes;
 import com.SmartHealthcare.dto.request.appointment.CancelAppointment;
 import com.SmartHealthcare.dto.request.appointment.DoctorScheduleAppointmentDTO;
 import com.SmartHealthcare.dto.request.appointment.PatientBookAppointmentDTO;
-import com.SmartHealthcare.dto.response.appointment.AppointmentDTO;
-import com.SmartHealthcare.exception.BusinessLogicException;
-import com.SmartHealthcare.model.appointment.Appointment;
-import com.SmartHealthcare.model.doctor.DoctorAvailability;
 import com.SmartHealthcare.service.appointment.AppointmentService;
 import com.SmartHealthcare.service.doctor.DoctorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.swing.plaf.PanelUI;
-import java.util.List;
 
 
 @RestController
