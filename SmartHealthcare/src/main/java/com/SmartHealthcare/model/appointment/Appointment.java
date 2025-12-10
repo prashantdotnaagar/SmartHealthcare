@@ -76,7 +76,7 @@ public class Appointment {
     private String symptoms;
     private String notes;
     private String cancellationReason;
-    private Long cancelledBy;
+    private String cancelledBy;
     private LocalDateTime cancelledAt;
     private boolean reminderSent = false;
 

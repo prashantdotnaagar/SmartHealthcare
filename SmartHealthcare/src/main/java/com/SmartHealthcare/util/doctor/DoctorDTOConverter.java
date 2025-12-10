@@ -1,6 +1,6 @@
 package com.SmartHealthcare.util.doctor;
 
-import com.SmartHealthcare.dto.DoctorDTO;
+import com.SmartHealthcare.dto.response.doctor.DoctorDTO;;
 import com.SmartHealthcare.dto.response.doctor.DoctorAvailabilityDTO;
 import com.SmartHealthcare.model.doctor.Doctor;
 import com.SmartHealthcare.model.doctor.DoctorAvailability;
@@ -54,6 +54,13 @@ public class DoctorDTOConverter {
 
         return availabilityList.stream()
                 .map(DoctorDTOConverter::convertToAvailabilityDTO)
+                .collect(Collectors.toList());
+    }
+
+    public static List<DoctorDTO> convertToDoctorDTOList(List<Doctor> doctors) {
+        if (doctors == null || doctors.isEmpty()) return List.of();
+        return doctors.stream()
+                .map(DoctorDTOConverter::convertToDoctorDTO)
                 .collect(Collectors.toList());
     }
 }

@@ -2,10 +2,11 @@ package com.SmartHealthcare.controller.doctor;
 
 import com.SmartHealthcare.constants.ServiceCodes;
 import com.SmartHealthcare.dto.response.appointment.AppointmentDTO;
-import com.SmartHealthcare.dto.DoctorDTO;
+
 import com.SmartHealthcare.dto.request.doctor.FilterRequest;
 import com.SmartHealthcare.dto.request.doctor.SearchRequest;
 import com.SmartHealthcare.dto.response.doctor.DoctorAvailabilityDTO;
+import com.SmartHealthcare.dto.response.doctor.DoctorDTO;
 import com.SmartHealthcare.dto.schedule.WeekSchedule;
 import com.SmartHealthcare.model.appointment.Appointment;
 import com.SmartHealthcare.model.doctor.Doctor;
@@ -91,11 +92,11 @@ public class DoctorController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<List<Doctor>> filterDoctors(@RequestBody @Valid FilterRequest filterRequest) {
+    public ResponseEntity<List<DoctorDTO>> filterDoctors(@RequestBody @Valid FilterRequest filterRequest) {
         List<Doctor> doctors = doctorService.filterDoctors(filterRequest);
-        return ResponseEntity.ok(doctors);
+        List<DoctorDTO>result=DoctorDTOConverter.convertToDoctorDTOList(doctors);
+        return ResponseEntity.ok(result);
     }
-    //Exact amount of consultaion fees , change it to round amount or nearest amount in data
 
     @GetMapping("/{doctorId}/schedule")
     public ResponseEntity<WeekSchedule> getDoctorWeekSchedule(

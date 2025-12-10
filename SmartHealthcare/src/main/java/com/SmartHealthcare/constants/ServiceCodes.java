@@ -46,6 +46,8 @@ public enum ServiceCodes {
     DUPLICATE_APPOINTMENT("NHC304", "Appointment already exists for the same slot"),
     APPOINTMENT_SAVE_FAILED("NHC305", "Failed to save appointment"),
     APPOINTMENT_CANCEL_FAILED("NHC306", "Failed to cancel appointment"),
+    APPOINTMENT_CANCELLED("NHC307","Appointment Cancelled"),
+    APPOINTMENT_ALREADY_CANCELLED("NHC308","Appointment already cancelled"),
 
 
 
@@ -65,8 +67,8 @@ public enum ServiceCodes {
     // ===== Misc / System =====
     DATABASE_ERROR("NHC601", "Database operation failed"),
     EXTERNAL_API_ERROR("NHC602", "Error communicating with external service"),
-    DATA_INCONSISTENCY("NHC603", "Data inconsistency detected");
-
+    DATA_INCONSISTENCY("NHC603", "Data inconsistency detected"),
+    NOT_FOUND("NHC701","Resource Not Found");
     private final String code;
     private final String message;
 

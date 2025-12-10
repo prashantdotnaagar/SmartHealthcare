@@ -33,6 +33,6 @@ public class AppointmentDTO {
     private String symptoms;
     private String notes;
     private String cancellationReason;
-    private Long cancelledBy;
+    private String cancelledBy;
     private boolean reminderSent;
 }

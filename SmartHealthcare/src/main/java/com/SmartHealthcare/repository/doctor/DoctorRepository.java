@@ -30,12 +30,14 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long>, JpaSpecif
 
     @Query("SELECT d FROM Doctor d WHERE " +
             "(:availability IS NULL OR d.availability = :availability) AND " +
-            "(:consultationFees IS NULL OR d.consultationFees = :consultationFees) AND " +
+            "(:minFee IS NULL OR :maxFee IS NULL OR d.consultationFees BETWEEN :minFee AND :maxFee) AND " +
             "(:ratings IS NULL OR d.ratings = :ratings)")
     List<Doctor> filterDoctors(
             @Param("availability") String availability,
-            @Param("consultationFees") Double consultationFees,
+            @Param("minFee") Double minFee,
+            @Param("maxFee") Double maxFee,
             @Param("ratings") Double ratings
     );
+
 
 }
